@@ -1,0 +1,50 @@
+head
+  title Concierge
+
+body
+  .navbar
+    .navbar-inner
+      a.hn.brand(href="#") Concierge
+      ul.nav
+        li.active
+          a(href="#") Foyer
+
+
+  {{> guest_detail}}
+
+  {{> checkins}}
+
+
+template(name="checkin")
+  li.checkin.media.well.animated.bounceInDown.mini_quote.hn.span6(id="checkin-{{_id}}")
+    .span2
+      a.viewGuest
+        img.viewGuest.img-rounded(src="/{{guest.photo}}", width="64")
+    .span4(style="margin-left:-40px!important;margin-top:-15px!important;")
+      a.viewGuest
+        h3= "{{guest.name}}"
+      span(style="padding-top:-25px!important;")
+        ="{{relative_date}} at "
+        abbr(title="This is the reader where the guest checked in.")= "{{device}}"
+
+template(name="guest_detail")
+  .span5.well
+    center
+      img.img-polaroid(src="/{{guest.photo}}.jpg")
+      h2.hn= "{{guest.name}}"
+
+    dl.dl-horizontal
+      dt Dietary Restrictions
+      dd= "{{guest.dietary}}"
+
+      dt Favorite Liquor
+      dd= "{{guest.booze}}"
+
+
+template(name="checkins")
+  .span7
+    h3.hn Guests waiting:
+    ul
+      {{#each checkins}}
+        {{> checkin}}
+      {{/each}}
